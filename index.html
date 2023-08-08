@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple User Authentication</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">File Sharing Tool</h1>
+        <div id="loginForm">
+            <h2>Login</h2>
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <p class="mt-3">Don't have an account? <a href="#" id="signupLink">Sign Up</a></p>
+        </div>
+
+        <div id="signupForm" style="display: none;">
+            <h2>Sign Up</h2>
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="signupEmail" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" id="signupPassword" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+            <p class="mt-3">Already have an account? <a href="#" id="loginLink">Log In</a></p>
+        </div>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+let userEmail = "user@example.com";
+        let userPassword = "password";
+        const loginForm = document.getElementById("loginForm");
+        let isLoginVisible = true;
+        const signupForm = document.getElementById("signupForm");
+        let isSignupVisible = false;
+
+        // Conditional based rendering for signup and signin
+        document.getElementById("signupLink").addEventListener("click", () => {
+            loginForm.style.display = "none";
+            signupForm.style.display = "block";
+            isLoginVisible = false;
+            isSignupVisible = true;
+        });
+
+        //Conditinal based rendering to signin and signup
+        document.getElementById("loginLink").addEventListener("click", () => {
+            loginForm.style.display = "block";
+            signupForm.style.display = "none";
+            isLoginVisible = true;
+            isSignupVisible=false;
+        });
+        
+        // Detect submission of form and run the code
+        loginForm.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            // get email from the element
+            const loginEmail = document.getElementById("loginEmail").value;
+            //get passoword from the element
+            const loginPassword = document.getElementById("loginPassword").value;
+            
+            //check for the users data matches with credentials in form
+            if (loginEmail === userEmail && loginPassword === userPassword) {
+                alert("Login successful!");
+                // Add code to handle successful login
+                location.href = 'fileupload.html';
+            } else {
+                alert("Invalid email or password. Please try again.");
+                // Add code to handle login failure
+            }
+        });
+
+        // get email from the element
+        const signupEmail = document.getElementById("signupEmail").value;
+        //get passoword from the element
+        const signupPassword = document.getElementById("signupPassword").value;
+        // Say that user is registeered successfully
+        signupForm.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            // get email from the element
+        const signupEmail = document.getElementById("signupEmail").value;
+        //get passoword from the element
+        const signupPassword = document.getElementById("signupPassword").value;
+            //set the new values here
+            alert("User registered successfully!");
+            userEmail = signupEmail;
+            //set the new password here
+            userPassword =  signupPassword;
+            
+            // Add code to handle successful sign-up
+        });
+    </script>
+</body>
+</html>
+     

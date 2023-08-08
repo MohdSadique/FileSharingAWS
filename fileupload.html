@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Sharing Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            align-items: center;
+            justify-self: center;
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        input[type="email"] {
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <form id="uploadForm" enctype="multipart/form-data" >
+         <!-- action="https://7dknhjvwy7.execute-api.eu-north-1.amazonaws.com/v1/upload"> -->
+        <input type="file" id="fileInput" name="fileInupt" required>
+        <br>
+        <br>
+        <input type="email" id="email1" name="email1" placeholder="Email 1" required>
+        <br>
+        <br>
+        <input type="email" id="email2" name="email2" placeholder="Email 2">
+        <br>
+        <br>
+        <input type="email" id="email3" name="email3" placeholder="Email 3">
+        <br>
+        <br>
+        <input type="email" id="email4" name="email4" placeholder="Email 4">
+        <br>
+        <br>
+        <input type="email" id="email5" name="email5" placeholder="Email 5">
+        <br>
+        <br>    
+        <input type="submit" value="Upload and Share">
+    </form>
+</div>
+    <script>
+        //get the reference to the form
+        const form = document.getElementById("uploadForm");
+
+        //detect submission of the form
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            //create variables and assign values
+            const fileInput = document.getElementById("fileInput");
+            const email1 = document.getElementById("email1").value;
+            const email2 = document.getElementById("email2").value;
+            const email3 = document.getElementById("email3").value;
+            const email4 = document.getElementById("email4").value;
+            const email5 = document.getElementById("email5").value;
+
+            //create an object of FormData
+            const formData = new FormData();
+            //add the uploaded file to the object
+            formData.append("file", fileInput.files[0]);
+            //add the emails into the object as an array
+            formData.append("emails", JSON.stringify([email1, email2, email3, email4, email5]));
+            console.log("formdata",formData);
+
+            //add data to the back end and send email i.e activate lambda function via API
+            try {
+                const response = await fetch("https://7dknhjvwy7.execute-api.eu-north-1.amazonaws.com/v1/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert("File has been uploaded and shared successfully!");
+                    // Clear the form after successful submission
+                    form.reset();
+                } else {
+                    alert("Failed to upload and share the file. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error occurred: ", error);
+                alert("An error occurred. Please try again later.");
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
