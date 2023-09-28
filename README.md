@@ -218,3 +218,12 @@ Create EC2 Instance and host website
 
 
 Voila Your website  is up and running!
+
+Screenshot of login/signup page:
+
+![awsuserpage](https://github.com/MohdSadique/FileSharingAWS/assets/70476644/1fbae178-1578-439e-acea-8185e2d05c2b)
+
+
+Screenshot of fileupload and email:
+
+![awssharingpage](https://github.com/MohdSadique/FileSharingAWS/assets/70476644/d2291db1-a7cb-4ff9-b4f7-48b63932783f)
